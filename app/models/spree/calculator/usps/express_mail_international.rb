@@ -25,6 +25,10 @@ module Spree
           "UY"=>44, "UZ"=>66, "VU"=>55, "VA"=>66, "VE"=>66, "VN"=>66, "WS"=>44, "YE"=>66, "ZM"=>66, "ZW"=>44
         }
 
+        def self.service_code
+          1 #Priority Mail Express International™
+        end
+
         def self.description
           I18n.t("usps.express_mail_intl")
         end
@@ -36,7 +40,7 @@ module Spree
           if limit.nil?
             raise Spree::ShippingError.new("#{I18n.t(:shipping_error)}: This shipping method isn't available for #{country.name}")
           end
-          limit*Spree::ActiveShipping::Config[:unit_multiplier]
+          limit * 16	# weights are operated on in ounces
         end
       end
     end

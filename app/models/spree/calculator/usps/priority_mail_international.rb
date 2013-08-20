@@ -27,7 +27,11 @@ module Spree
           "ME"=>70, "NE"=>70, "PK"=>70, "PA"=>70, "PE"=>70, "QA"=>70, "RO"=>70, "RS"=>70, "SC"=>70, "SY"=>70, "TG"=>70, 
           "AE"=>70, "UZ"=>70, "VN"=>70    
         }
-        
+
+        def self.service_code
+          2 #Priority Mail International®
+        end
+
         def self.description
           I18n.t("usps.priority_mail_international")
         end
@@ -39,7 +43,7 @@ module Spree
           if limit.nil?
             raise Spree::ShippingError.new("#{I18n.t(:shipping_error)}: This shipping method isn't available for #{country.name}")
           end
-          limit*Spree::ActiveShipping::Config[:unit_multiplier]
+          limit * 16	# weights are operated on in ounces
         end
       end
     end
