@@ -165,7 +165,8 @@ module Spree
             quantity = line_item.quantity
             if max_weight <= 0
               if line_item.is_cake?
-                (2 * quantity * multiplier) + 7
+                # the mondrian cake ships in a box that weighs 1lb and contains 5lbs of dry ice. Each cake weighs 2 lbs
+                (2 * quantity * multiplier) + (6 * multiplier)
               else
                 item_weight * quantity
               end
