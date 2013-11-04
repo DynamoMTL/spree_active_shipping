@@ -164,7 +164,11 @@ module Spree
 
             quantity = line_item.quantity
             if max_weight <= 0
-              item_weight * quantity
+              if line_item.is_cake?
+                (2 * quantity * multiplier) + 7
+              else
+                item_weight * quantity
+              end
             elsif item_weight == 0
               0
             else
