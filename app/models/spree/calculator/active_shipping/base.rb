@@ -41,7 +41,7 @@ module Spree
             if order_packages.empty?
               {}
             else
-              retrieve_rates(origin, destination, order_packages)
+              retrieve_rates(origin, destination, order_packages, order.line_items)
             end
           end
 
@@ -85,9 +85,9 @@ module Spree
         end
 
         private
-        def retrieve_rates(origin, destination, packages)
+        def retrieve_rates(origin, destination, packages, items)
           begin
-            response = carrier.find_rates(origin, destination, packages)
+            response = carrier.find_rates(origin, destination, packages, { items: items } )
             # turn this beastly array into a nice little hash
             rates = response.rates.collect do |rate|
               # decode html entities for xml-based APIs, ie Canada Post
